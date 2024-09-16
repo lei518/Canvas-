@@ -1,0 +1,44 @@
+{% extends 'taskbar.html' %}
+{% load static %}
+{% block content %}
+    <!-- Main Content -->
+    <div class="content-container">
+        <h1>{{ obj.name }} Announcements</h1>
+    {% if user.is_professor %}
+            <a href="{% url 'class:add_announcement' obj.pk %}">
+                <button type="button" class="custom-btn">Add Announcement</button>
+            </a>
+          {% endif %}
+        <ul class="announcement-list">
+            {% for announcement in announcements %}
+                <li>
+                    <div class="announcement-container">
+                        <h3>{{ announcement.title }}</h3>
+                        <div class="announcement-item">
+                        <p>{{ announcement.content }}</p>
+                    </div>
+                      </div>
+                </li>
+            {% endfor %}
+
+        </ul>
+
+        <h1>{{ obj.name }} Materials</h1>
+        {% if user.is_professor %}
+            <a href="{% url 'class:add_module' obj.pk %}">
+                <button type="button" class="custom-btn">Add Module</button>
+            </a>
+        {% endif %}
+        <ul class="content-container">
+            {% for material in materials %}
+                <li>
+                    <div class="announcement-container">
+                        <h3>{{ material.title }}</h3>
+                        <p><a href="{{ material.content.url }}" target="_blank">Download PDF</a></p>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+   {% endblock %}
